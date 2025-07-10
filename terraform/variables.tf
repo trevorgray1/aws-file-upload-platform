@@ -1,3 +1,9 @@
+
+variable "project_name" {
+  description = "Overall project name for tagging resources"
+  type        = string
+}
+
 variable "aws_region" {
   description = "The AWS region to deploy resources."
   type        = string
@@ -7,6 +13,13 @@ variable "aws_region" {
 variable "vpc_cidr_block" {
   description = "The CIDR block for the Virtual Private Cloud (VPC)."
   type        = string
+  default     = "172.31.0.0/16"
+}
+
+variable "vpc_name" {
+  description = "The name for the VPC."
+  type        = string
+  default     = "Default"
 }
 
 variable "public_subnet_cidr_blocks" {

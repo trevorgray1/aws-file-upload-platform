@@ -18,3 +18,24 @@ Workflow:
 4. Sends metadata to another endpoint.
 5. Lambda stores metadata in PostgreSQL.
 
+### Initializing Terraform for Different Environments
+
+To initialize the Terraform backend for a specific environment, navigate to the `terraform` directory and run the `terraform init` command with the appropriate `key` parameter. This ensures your state file is stored correctly in the shared S3 backend.
+
+*   **For the Development Environment:**
+    ```bash
+    terraform init -backend-config="key=file-uploader/environments/dev/terraform.tfstate"
+    ```
+*   **For the Staging Environment:**
+    ```bash
+    terraform init -backend-config="key=file-uploader/environments/staging/terraform.tfstate"
+    ```
+*   **For the Production Environment:**
+    ```bash
+    terraform init -backend-config="key=file-uploader/environments/prod/terraform.tfstate"
+    ```
+    Terraform initializes the backend, installs provider plugins, and downloads modules. After running the command, Terraform creates a dependency lock file (.\terraform.lock.hcl) to record the versions of the providers. This file should be committed to your version control system to ensure consistent provider versions across environments and team members, according to Zeet.co.
+
+---
+
+**Remember to replace `yourname-file-uploader-tf-state`, `us-east-1`, and `yourname-file-uploader-tf-lock` in `terraform/backend.tf` with your actual bucket name, region, and DynamoDB table name.**
